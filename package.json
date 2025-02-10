@@ -1,5 +1,5 @@
 {
-  "homepage": "http://manikandan-M-45.github.io/movie-app-react",
+  "homepage": "http://manikandan-m-45.github.io/movie-app-react",
   "name": "movie-app",
   "private": true,
   "version": "0.0.0",
@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@react-email/components": "^0.0.30",
