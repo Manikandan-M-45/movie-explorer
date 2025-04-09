@@ -6,6 +6,7 @@ import NoImage from "../assets/noimg.png";
 const MovieDetails = () => {
   const params = useParams();
   const [movie, setMovie] = useState([]);
+  const [favMovie, setFavMovie] = useState([]);
   const key = import.meta.env.VITE_API_KEY;
   const url = `https://api.themoviedb.org/3/movie/${params.id}?api_key=${key}`;
 
@@ -21,6 +22,35 @@ const MovieDetails = () => {
     document.title = `${movie.title}`;
   });
   console.log(movie);
+
+  const handleFav = async() => {
+    const res = await axios.post(`https://api.themoviedb.org/3/account/21666882/favorite?api_key=${key}`,{
+      "media_type": "movie",
+      "media_id": movie.id,
+      "favorite": true
+    },
+    {
+      headers: {
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZjQ5OWEwNTg1NDM2YWI0MmQwM2Y1OTNlNGJjMzQ5OCIsIm5iZiI6MTczMzIwODI4My45Njk5OTk4LCJzdWIiOiI2NzRlYThkYjY3OWVjMTUzMjg4MjVlNjUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.wdPeqDLkU_7jk0XGGAtIC6B5cX8BIu25O5kL98KieLM'
+      }
+    }
+  )
+
+    setFavMovie(res.data);
+
+    viewFavMovies();
+  }
+  console.log('favMovie: ', favMovie)
+
+  const viewFavMovies = async() => {
+    const res = await axios.get('https://api.themoviedb.org/3/account/21666882/favorite/movies?language=en-US&page=1&sort_by=created_at.asc',{
+      headers: {
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3ZjQ5OWEwNTg1NDM2YWI0MmQwM2Y1OTNlNGJjMzQ5OCIsIm5iZiI6MTczMzIwODI4My45Njk5OTk4LCJzdWIiOiI2NzRlYThkYjY3OWVjMTUzMjg4MjVlNjUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.wdPeqDLkU_7jk0XGGAtIC6B5cX8BIu25O5kL98KieLM'
+      }
+    })
+
+    console.log('viewFavMovies: ', res);
+  }
 
   const movieImg = movie.poster_path
     ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
@@ -77,6 +107,15 @@ const MovieDetails = () => {
               >
                 View in IMDB
               </a>
+            </div>
+            <div className="my-lg-5 my-3">
+              <button
+                
+                className="btn btn-outline-warning"
+                onClick={handleFav}
+              >
+                Add to Favourites
+              </button>
             </div>
           </div>
         </div>

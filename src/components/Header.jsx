@@ -9,7 +9,7 @@ const Header = () => {
     e.preventDefault();
     const searchedMovie = e.target.search.value;
     e.target.reset();
-    navigate(`/search?q=${searchedMovie}`)
+    navigate(`/search?movie=${searchedMovie}`)
   }
   return (
     <div>

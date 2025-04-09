@@ -4,8 +4,8 @@ import { useSearchParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 
 const SearchMovie = ({ api_path }) => {
-  const [searchParams] = useSearchParams();
-  const queryString = searchParams.get("q");
+  const [searchParameter] = useSearchParams();
+  const queryString = searchParameter.get("movie");
 
   useEffect(() => {
     document.title = `search results for ${queryString}`;
